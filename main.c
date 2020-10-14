@@ -24,7 +24,20 @@ VERTICE *criarVerticeAdjacente(int destino) {
 }
 
 
-void adicionarVertice(GRAFO *grafo, int origem, int destino) {
+bool criarArestas(GRAFO *grafo, int origem, int destino) {
+
+  if (!grafo) {
+      return false;
+  }
+
+  if ((destino < 0) || (destino >= grafo->quantidadeVertices)) {
+    return false;
+  }
+
+  if ((origem < 0) || (origem >= grafo->quantidadeVertices)) {
+    return false;
+  }
+
   ADJACENCIA *verticeAdjacente = criarVerticeAdjacente(destino);
 
   verticeAdjacente->proximo = grafo->vertices[origem].cabeca;
@@ -51,13 +64,13 @@ int main(void) {
   int quantidadeVertices = 10;
   GRAFO *grafo = criarGrafo(quantidadeVertices);
 
-	adicionarVertice(grafo, 0, 1);
-	adicionarVertice(grafo, 0, 4);
-	adicionarVertice(grafo, 1, 2);
-	adicionarVertice(grafo, 1, 3);
-	adicionarVertice(grafo, 1, 4);
-	adicionarVertice(grafo, 2, 3);
-	adicionarVertice(grafo, 3, 4);
+	criarArestas(grafo, 0, 1);
+	criarArestas(grafo, 0, 4);
+	criarArestas(grafo, 1, 2);
+	criarArestas(grafo, 1, 3);
+	criarArestas(grafo, 1, 4);
+	criarArestas(grafo, 2, 3);
+	criarArestas(grafo, 3, 4);
 
 	imprimirGrafo(grafo);
 
