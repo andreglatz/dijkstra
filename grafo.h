@@ -17,5 +17,5 @@ typedef struct sGraph {
 
 VERTICE *criarVerticeAdjacente(int destino);
 GRAFO *criarGrafo(int quantidadeVertices);
-void adicionarVertice(GRAFO *grafo, int origem, int destino);
+void criarArestas(GRAFO *grafo, int origem, int destino);
 void imprimirGrafo(GRAFO *grafo);
