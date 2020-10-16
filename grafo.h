@@ -1,6 +1,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include "bool.h"
+#include "cidade.h"
 
 typedef struct sAdj {
   int destino;
@@ -10,7 +11,7 @@ typedef struct sAdj {
 
 
 typedef struct sVertex {
-  int info;
+  CIDADE cidade;
   ADJACENCIA *cabeca;
 } VERTICE;
 
@@ -29,7 +30,7 @@ ADJACENCIA *criarVerticeAdjacente(int destino, double peso)  {
   return vertice;
 }
 
-GRAFO *criarGrafo(int quantidadeVertices) {
+GRAFO *criarGrafo(int quantidadeVertices, CIDADE *cidades) {
   GRAFO *grafo = (GRAFO *) malloc(sizeof(GRAFO));
   grafo->qtdeVertices = quantidadeVertices;
 
@@ -37,6 +38,7 @@ GRAFO *criarGrafo(int quantidadeVertices) {
 
   for (int i = 0; i < quantidadeVertices; ++i) {
     grafo->vertices[i].cabeca = NULL;
+    grafo->vertices[i].cidade = cidades[i];
   }
 
   return grafo;
@@ -85,26 +87,37 @@ bool buscarAdjacencia(ADJACENCIA *listaAdjacencia, int vertice) {
   return false;
 }
 
+double distanciaEuclidiana(COORDENADAS coordsInicial, COORDENADAS coordsFinal) {
+  double x = coordsFinal.x - coordsInicial.x;
+  double y = coordsFinal.y - coordsInicial.y;
+
+  return sqrt(pow(x, 2) + pow(y, 2));
+}
+
 void gerarArestasAleatorias(GRAFO *grafo) {
   int qtdeArestas  = quantidadeArestas(grafo, 50);
   int qtdeVertices = grafo->qtdeVertices;
 
   srand(time(NULL));
 
-  int verticeOrigem = 0;
-  int verticeDestino = 0;
+  int origem = 0;
+  int destino = 0;
 
   for (int i = 0; i < qtdeArestas; ++i) {
-    verticeOrigem  = rand() % qtdeVertices;
-    verticeDestino = rand() % qtdeVertices;
+    origem  = rand() % qtdeVertices;
+    destino = rand() % qtdeVertices;
 
-    ADJACENCIA *listaAdjacencia = grafo->vertices[verticeOrigem].cabeca;
+    ADJACENCIA *listaAdjacencia = grafo->vertices[origem].cabeca;
 
-    if (verticeOrigem != verticeDestino && !buscarAdjacencia(listaAdjacencia, verticeDestino)) {
-      criarArestas(grafo, verticeOrigem, verticeDestino, 2.0);
-    } else {
-      --i;
-    }
+    if (origem != destino && !buscarAdjacencia(listaAdjacencia, destino)) {
+
+      VERTICE verticeOrigem  = grafo->vertices[origem];
+      VERTICE verticeDestino = grafo->vertices[destino];
+
+      double distancia = distanciaEuclidiana(verticeOrigem.cidade.coords, verticeDestino.cidade.coords);
+      criarArestas(grafo, origem, destino, distancia);
+
+    } else { --i; }
   }
 }
 
