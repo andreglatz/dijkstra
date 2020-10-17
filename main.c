@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <limits.h>
-#include "dijkstra.c"
+#include "dijkstra.h"
 
 void imprimirGrafo(GRAFO *grafo) {
 
@@ -48,12 +48,11 @@ void imprimirCaminhosDijkstra(GRAFO *grafo, DIJKSTRA *d) {
 
 int main(void) {
   int quantidadeVertices = 7;
-  CIDADE *cidades = criarCidades(quantidadeVertices);
 
+  CIDADE *cidades = criarCidades(quantidadeVertices);
   GRAFO *grafo = criarGrafo(quantidadeVertices, cidades);
 
   gerarArestasAleatorias(grafo);
-
   DIJKSTRA *d = dijkstra(grafo, 0);
 
   imprimirCaminhosDijkstra(grafo, d);
