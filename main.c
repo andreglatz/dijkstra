@@ -29,10 +29,28 @@ int main(void) {
 
   gerarArestasAleatorias(grafo);
 
-  double *r = dijkstra(grafo, 0);
+  DIJKSTRA *d = dijkstra(grafo, 0);
 
-  for (int i = 0; i < grafo->qtdeVertices; i++)
-    printf("D(v0 -> v%d) = %f\n", i, r[i]);
+  for (int i = 1; i < grafo->qtdeVertices; ++i){
+    printf("\nD(v0 -> v%d) = %f\n", i, d->distancias[i]);
+
+    int *caminho = (int *) malloc(sizeof(int));
+    caminho[0] = i;
+
+    int max = 1;
+    int aux = i;
+
+    while (d->pred[aux] > -1) {
+      caminho = (int *) realloc(caminho, ((max + 1) * sizeof(int)));
+      caminho[max] = d->pred[aux];
+      aux = d->pred[aux];
+      max++;
+    }
+
+    for(int j = max-1; j >= 0; j--) {
+      printf(" -> %d", caminho[j]);
+    }
+  }
 
 	imprimirGrafo(grafo);
 

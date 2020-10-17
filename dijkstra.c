@@ -1,5 +1,10 @@
 #include "grafo.h"
 
+typedef struct sDijkstra {
+  double *distancias;
+  int *pred;
+} DIJKSTRA;
+
 void inicializarDijkstra(GRAFO *grafo, double *distancia, int *pred, int vI) {
   for (int v = 0; v < grafo->qtdeVertices; v++) {
     distancia[v] = INT_MAX / 2;
@@ -49,7 +54,7 @@ int menorDist(GRAFO *grafo, bool *aberto, double *distancia) {
 }
 
 
-double *dijkstra(GRAFO *grafo, int verticeInicial) {
+DIJKSTRA *dijkstra(GRAFO *grafo, int verticeInicial) {
   double *distancia = (double *) malloc((grafo->qtdeVertices * sizeof(double)));
 
   int *pred    = (int *) malloc((grafo->qtdeVertices * sizeof(int)));
@@ -72,6 +77,10 @@ double *dijkstra(GRAFO *grafo, int verticeInicial) {
     }
   }
 
-  return distancia;
+  DIJKSTRA *dijkstra  = (DIJKSTRA *) malloc(sizeof(DIJKSTRA));
+  dijkstra->distancias = distancia;
+  dijkstra->pred       = pred;
+
+  return dijkstra;
 }
 
