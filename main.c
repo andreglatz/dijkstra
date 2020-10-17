@@ -21,15 +21,7 @@ void imprimirGrafo(GRAFO *grafo) {
   }
 }
 
-int main(void) {
-  int quantidadeVertices = 7;
-  CIDADE *cidades = criarCidades(quantidadeVertices);
-
-  GRAFO *grafo = criarGrafo(quantidadeVertices, cidades);
-
-  gerarArestasAleatorias(grafo);
-
-  DIJKSTRA *d = dijkstra(grafo, 0);
+void imprimirCaminhosDijkstra(GRAFO *grafo, DIJKSTRA *d) {
 
   for (int i = 1; i < grafo->qtdeVertices; ++i){
     printf("\nD(v0 -> v%d) = %f\n", i, d->distancias[i]);
@@ -52,6 +44,19 @@ int main(void) {
     }
   }
 
+}
+
+int main(void) {
+  int quantidadeVertices = 7;
+  CIDADE *cidades = criarCidades(quantidadeVertices);
+
+  GRAFO *grafo = criarGrafo(quantidadeVertices, cidades);
+
+  gerarArestasAleatorias(grafo);
+
+  DIJKSTRA *d = dijkstra(grafo, 0);
+
+  imprimirCaminhosDijkstra(grafo, d);
 	imprimirGrafo(grafo);
 
   return 0;
