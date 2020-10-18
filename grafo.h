@@ -1,6 +1,3 @@
-#include <time.h>
-#include <stdlib.h>
-#include "bool.h"
 #include "cidade.h"
 
 typedef struct sAdj {
@@ -94,30 +91,42 @@ double distanciaEuclidiana(COORDENADAS coordsInicial, COORDENADAS coordsFinal) {
   return sqrt(pow(x, 2) + pow(y, 2));
 }
 
+int tamanhoLista(ADJACENCIA *listaAdj) {
+
+  ADJACENCIA *aux = listaAdj;
+  int count = 0;
+
+  while (aux) {
+    count++;
+    aux = aux->proximo;
+  }
+
+  return count;
+}
+
 void gerarArestasAleatorias(GRAFO *grafo) {
   int qtdeArestas  = quantidadeArestas(grafo, 50);
   int qtdeVertices = grafo->qtdeVertices;
 
   srand(time(NULL));
 
-  int origem = 0;
-  int destino = 0;
-
   for (int i = 0; i < qtdeArestas; ++i) {
-    origem  = rand() % qtdeVertices;
-    destino = rand() % qtdeVertices;
+
+    int origem  = rand() % qtdeVertices;
 
     ADJACENCIA *listaAdjacencia = grafo->vertices[origem].cabeca;
 
-    if (origem != destino && !buscarAdjacencia(listaAdjacencia, destino)) {
+    int destino;
+    if (tamanhoLista(listaAdjacencia) < qtdeVertices - 1)
+      do {
+        destino = rand() % qtdeVertices;
+      } while (destino == origem || buscarAdjacencia(listaAdjacencia, destino));
 
-      VERTICE verticeOrigem  = grafo->vertices[origem];
-      VERTICE verticeDestino = grafo->vertices[destino];
+    VERTICE verticeOrigem  = grafo->vertices[origem];
+    VERTICE verticeDestino = grafo->vertices[destino];
 
-      double distancia = distanciaEuclidiana(verticeOrigem.cidade.coords, verticeDestino.cidade.coords);
-      criarArestas(grafo, origem, destino, distancia);
-
-    } else { --i; }
+    double distancia = distanciaEuclidiana(verticeOrigem.cidade.coords, verticeDestino.cidade.coords);
+    criarArestas(grafo, origem, destino, distancia);
   }
 }
 

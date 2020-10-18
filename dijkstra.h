@@ -12,6 +12,7 @@ void inicializarDijkstra(GRAFO *grafo, double *distancia, int *pred, int vI) {
   }
 
   distancia[vI] = 0;
+
 }
 
 void relaxarAdjacentes(GRAFO *grafo, double *distancia, int *pred, int vertice, int verticeAdj) {
@@ -55,10 +56,10 @@ int menorDist(GRAFO *grafo, bool *aberto, double *distancia) {
 
 
 DIJKSTRA *dijkstra(GRAFO *grafo, int verticeInicial) {
-  double *distancia = (double *) malloc((grafo->qtdeVertices * sizeof(double)));
 
-  int *pred    = (int *) malloc((grafo->qtdeVertices * sizeof(int)));
-  bool *aberto = (bool *) malloc((grafo->qtdeVertices * sizeof(bool)));
+  double *distancia = (double *) malloc((grafo->qtdeVertices * sizeof(double)));
+  int *pred         = (int *) malloc((grafo->qtdeVertices * sizeof(int)));
+  bool *aberto      = (bool *) malloc((grafo->qtdeVertices * sizeof(bool)));
 
   inicializarDijkstra(grafo, distancia, pred, verticeInicial);
 
@@ -77,10 +78,9 @@ DIJKSTRA *dijkstra(GRAFO *grafo, int verticeInicial) {
     }
   }
 
-  DIJKSTRA *dijkstra  = (DIJKSTRA *) malloc(sizeof(DIJKSTRA));
+  DIJKSTRA *dijkstra   = (DIJKSTRA *) malloc(sizeof(DIJKSTRA));
   dijkstra->distancias = distancia;
   dijkstra->pred       = pred;
 
   return dijkstra;
 }
-
