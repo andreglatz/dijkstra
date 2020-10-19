@@ -1,67 +1,57 @@
 #include <stdio.h>
-#include <math.h>
-#include <limits.h>
 #include <stdlib.h>
-#include <string.h>
-#include <time.h>
-#include "bool.h"
-#include "arquivo.h"
 #include "dijkstra.h"
+#include "arquivo.h"
 #include "screen.h"
 
-void imprimirGrafo(GRAFO *grafo) {
 
-  for (int i = 0; i < grafo->qtdeVertices; ++i) {
-    printf("\n\n\nV 0%d", i);
+void definirRota(GRAFO *grafo) {
+  int origem, destino;
 
-    CIDADE cidade = grafo->vertices[i].cidade;
-    printf("\nCIDADE: %s | X: %f | Y: %f", cidade.nome, cidade.coords.x, cidade.coords.y);
+  menuDefinirRota(&origem, &destino);
 
-    ADJACENCIA *listaAdjacencia = grafo->vertices[i].cabeca;
+  printf("\nORIGEM: (%d) %s | DESTINO: (%d) %s\n\n", origem, grafo->vertices[origem].cidade.nome,
+         destino, grafo->vertices[destino].cidade.nome);
 
-    printf("\nInicio");
-    while (listaAdjacencia) {
-      printf(" -> %d | %f", listaAdjacencia->destino, listaAdjacencia->peso);
-      listaAdjacencia = listaAdjacencia->proximo;
-    }
-  }
-}
+  if (origem != destino) {
+    DIJKSTRA *dij = dijkstra(grafo, origem);
 
-void imprimirCaminhosDijkstra(GRAFO *grafo, DIJKSTRA *d) {
-
-  for (int i = 0; i < grafo->qtdeVertices; ++i){
-    printf("\nD(v3 -> v%d) = %f\n", i, d->distancias[i]);
-
-    int *caminho = (int *) malloc(sizeof(int));
-    caminho[0] = i;
-
-    int max = 1;
-    int aux = i;
-
-    while (d->pred[aux] > -1) {
-      caminho = (int *) realloc(caminho, ((max + 1) * sizeof(int)));
-      caminho[max] = d->pred[aux];
-      aux = d->pred[aux];
-      max++;
+    if (dij->distancias[destino] == (INT_MAX / 2)) {
+      printf("Nao existe rota para essa cidade.");
+    } else {
+      imprimirCaminhosDijkstra(grafo, dij, destino);
     }
 
-    for(int j = max-1; j >= 0; j--) {
-      printf(" -> %d", caminho[j]);
-    }
+    getchar();
   }
 }
 
 int main(void) {
 
-  ARQDIJ *cidades = obterCidades("cidades.dij");
-  GRAFO *grafo = criarGrafo(cidades->quantidade, cidades->cidades);
-
+  ARQDIJ *arqdij = obterCidades("cidades.dij");
+  GRAFO *grafo = criarGrafo(arqdij->quantidade, arqdij->cidades);
   gerarArestasAleatorias(grafo);
-  DIJKSTRA *d = dijkstra(grafo, 3);
 
-  imprimirCaminhosDijkstra(grafo, d);
-  imprimirGrafo(grafo);
+  CIDADE *cidades = arqdij->cidades;
 
+  int opcao = 0;
+  do {
+
+    opcao = menu();
+
+    switch (opcao) {
+      case 1:
+        imprimirGrafo(grafo);
+        break;
+      case 2:
+        listarCidades(arqdij);
+        break;
+      case 3:
+        definirRota(grafo);
+        break;
+    }
+
+  } while(opcao != 4);
 
   return 0;
 }

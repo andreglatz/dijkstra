@@ -1,22 +1,4 @@
-#include "cidade.h"
-
-typedef struct sAdj {
-  int destino;
-  double peso;
-  struct sAdj *proximo;
-} ADJACENCIA;
-
-
-typedef struct sVertex {
-  CIDADE cidade;
-  ADJACENCIA *cabeca;
-} VERTICE;
-
-typedef struct sGraph {
-  int qtdeVertices;
-  int qtdeArestas;
-  VERTICE *vertices;
-} GRAFO;
+#include "grafo.h"
 
 ADJACENCIA *criarVerticeAdjacente(int destino, double peso)  {
   ADJACENCIA *vertice = (ADJACENCIA *) malloc(sizeof(ADJACENCIA));
@@ -105,7 +87,7 @@ int tamanhoLista(ADJACENCIA *listaAdj) {
 }
 
 void gerarArestasAleatorias(GRAFO *grafo) {
-  int qtdeArestas  = quantidadeArestas(grafo, 50);
+  int qtdeArestas  = quantidadeArestas(grafo, 20);
   int qtdeVertices = grafo->qtdeVertices;
 
   srand(time(NULL));
@@ -130,4 +112,3 @@ void gerarArestasAleatorias(GRAFO *grafo) {
   }
 }
 
-void imprimirGrafo(GRAFO *grafo);

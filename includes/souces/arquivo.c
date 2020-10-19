@@ -1,14 +1,4 @@
-#ifndef ARQUIVO_H
-#define ARQUIVO_H
-
-#include <assert.h>
-#include <string.h>
-#include "cidade.h"
-
-typedef struct sArqDij {
-  int quantidade;
-  CIDADE *cidades;
-} ARQDIJ;
+#include "arquivo.h"
 
 char** strSplit(char* str, const char *delim)
 {
@@ -73,6 +63,3 @@ ARQDIJ *obterCidades(char *nomeArquivo) {
 
   return arqdij;
 }
-
-
-#endif // ARQUIVO_H
