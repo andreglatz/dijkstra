@@ -31,11 +31,15 @@ Além de bibliotecas criadas específicamente para este trabalho como:
 
 Para executar a aplicação é necessário clonar o repositório:
 
-`git clone https://github.com/andreglatz/dijkstra.git`
+```
+git clone https://github.com/andreglatz/dijkstra.git
+```
 
 Em seguida é preciso compilar o software. Deixo como sugestão compilar com o seguinte comando, pois nele é atribuída todas as libs necessárias para a execução:
 
-`gcc main.c -I ./includes/headers -L ./includes/libs -larquivo -ldijkstra -lgrafo -lscreen -lm -o dijkstra_cidades`
+```
+gcc main.c -I ./includes/headers -L ./includes/libs -larquivo -ldijkstra -lgrafo -lscreen -lm -o dijkstra_cidades
+```
 
 ---
 
