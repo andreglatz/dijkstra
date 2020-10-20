@@ -2,7 +2,7 @@
 
 O algoritmo de Dijkstra tem como objetivo definir o menor caminho entre dois pontos com base no peso das arestas de um grafo.
 
-Através dos estudos do curso de estrutura de dados do **Instituto Federal de São Paulo - Campus Campos do Jordão**, ministrado pelo professor **Marques de Sousa**. A aplicação proposta tem por objetivo ler um arquivo que contém, em sua primeira linha, o número de cidades a ser considerada e nas demais linhas o nome das cidades e seus pontos X e Y de um plano 2D.
+Através dos estudos do curso de estrutura de dados do **Instituto Federal de São Paulo - Campus Campos do Jordão**, ministrado pelo professor **Marques de Sousa**. A aplicação proposta tem por objetivo ler um arquivo que contém, em sua primeira linha, o número de cidades a ser considerada e nas demais linhas o nome das cidades e seus pontos X e Y de um plano 2D. A aplicação segue o modelo *console application* que contém um menu para interação.
 
 Para esta aplicação, foi utilizado o compilador GCC (9.3.0) e as demais bibliotecas:
 
@@ -40,6 +40,12 @@ Em seguida é preciso compilar o software. Deixo como sugestão compilar com o s
 ```
 gcc main.c -I ./includes/headers -L ./includes/libs -larquivo -ldijkstra -lgrafo -lscreen -lm -o dijkstra_cidades
 ```
+
+Para alimentar a "base de dados" do programa, é utilizado um arquivo .dij, extensão escolhida para representar a proposta da aplicação. Os dados inseridos nesse arquivo deve conter o seguinte formato:
+
+- A primeira linha deve conter um número inteiro que define a quantidade de cidades a ser inseridas nas próximas linhas.
+
+- Nas demais linhas, os dados das cidades devem seguir o seguinte padrão: NOME;X;Y (semelhante a um arquivo .csv).
 
 ---
 
