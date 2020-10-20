@@ -4,7 +4,7 @@ O algoritmo de Dijkstra tem como objetivo definir o menor caminho entre dois pon
 
 Através dos estudos do curso de estrutura de dados do **Instituto Federal de São Paulo - Campus Campos do Jordão**, ministrado pelo professor **Marques de Sousa**. A aplicação proposta tem por objetivo ler um arquivo que contém, em sua primeira linha, o número de cidades a ser considerada e nas demais linhas o nome das cidades e seus pontos X e Y de um plano 2D.
 
-Para esta aplicação foi utilizado o compilador GCC (9.3.0) e as demais bibliotecas:
+Para esta aplicação, foi utilizado o compilador GCC (9.3.0) e as demais bibliotecas:
 
 - stdlib
 - stdio
