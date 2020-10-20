@@ -43,7 +43,7 @@ gcc main.c -I ./includes/headers -L ./includes/libs -larquivo -ldijkstra -lgrafo
 
 Para alimentar a "base de dados" do programa, é utilizado um arquivo .dij, extensão escolhida para representar a proposta da aplicação. Os dados inseridos nesse arquivo deve conter o seguinte formato:
 
-- A primeira linha deve conter um número inteiro que define a quantidade de cidades a ser inseridas nas próximas linhas.
+- A primeira linha deve conter um número inteiro que define a quantidade de cidades a serem inseridas nas próximas linhas.
 
 - Nas demais linhas, os dados das cidades devem seguir o seguinte padrão: NOME;X;Y (semelhante a um arquivo .csv).
 
