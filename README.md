@@ -47,6 +47,14 @@ Para alimentar a "base de dados" do programa, é utilizado um arquivo .dij, exte
 
 - Nas demais linhas, os dados das cidades devem seguir o seguinte padrão: NOME;X;Y (semelhante a um arquivo .csv).
 
+#### Exemplo
+```
+3
+CAÇAPAVA;2.398;28.291
+UBATUBA;4.291;92.918
+TREMEMBÉ;9.192;21.928
+```
+
 ---
 
 ### Contatos
